@@ -30,7 +30,12 @@ cd $SOURCE_PATH
 if [ $STEPS -ge 3 ]
 then
 	echo "Pulling latest from GitHub…"
-	git pull
+	if ! git fetch upstream || \
+	! git merge upstream/master -m "Updating to latest from official" || \
+	! git push
+	then
+		echo "Error while updating from official MAME repo. Please merge from the official repo manually and try again."
+	fi
 fi
 
 # Build `mame`

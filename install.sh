@@ -2,7 +2,7 @@ STEPS=2
 OVERRIDE=1
 ARCH="x64"
 SOURCE_PATH=$(dirname $0)
-while getopts 'bdgips:' option
+while getopts 'bdgips:t:' option
 do
 	case $option in
 		b) STEPS=2 ;;
@@ -11,6 +11,7 @@ do
 		i) STEPS=0 ;;
 		p) OVERRIDE=0 ;;
 		s) SOURCE_PATH=$OPTARG ;;
+		t) COMMIT=$OPTARG ;;
 	esac
 done
 shift $((OPTIND-1))
@@ -30,11 +31,19 @@ cd $SOURCE_PATH
 if [ $STEPS -ge 3 ]
 then
 	echo "Pulling latest from GitHub…"
+	if [[ -z "$COMMIT" ]]
+	then
+		COMMIT="upstream/master"
+	else
+		COMMIT=$(echo $COMMIT | tr -d .)
+		COMMIT="mame$COMMIT"
+	fi
 	if ! git fetch upstream || \
-	! git merge upstream/master -m "Updating to latest from official" || \
+	! git merge "$COMMIT" -m "Updating to latest from official" || \
 	! git push
 	then
 		echo "Error while updating from official MAME repo. Please merge from the official repo manually and try again."
+		exit 1
 	fi
 fi
 

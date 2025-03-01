@@ -43,6 +43,8 @@ if (CPU_INCLUDE_DRC) then
 	}
 	if not _OPTIONS["FORCE_DRC_C_BACKEND"] then
 		files {
+			MAME_DIR .. "src/devices/cpu/drcbearm64.cpp",
+			MAME_DIR .. "src/devices/cpu/drcbearm64.h",
 			MAME_DIR .. "src/devices/cpu/drcbex64.cpp",
 			MAME_DIR .. "src/devices/cpu/drcbex64.h",
 			MAME_DIR .. "src/devices/cpu/drcbex86.cpp",
@@ -1424,6 +1426,8 @@ if CPUS["KL1839VM1"] then
 	files {
 		MAME_DIR .. "src/devices/cpu/mpk1839/kl1839vm1.cpp",
 		MAME_DIR .. "src/devices/cpu/mpk1839/kl1839vm1.h",
+		MAME_DIR .. "src/devices/cpu/vax/vaxdasm.cpp",
+		MAME_DIR .. "src/devices/cpu/vax/vaxdasm.h",
 	}
 end
 
@@ -2008,6 +2012,8 @@ if CPUS["M6805"] then
 		MAME_DIR .. "src/devices/cpu/m6805/m68hc05.h",
 		MAME_DIR .. "src/devices/cpu/m6805/m68hc05e1.cpp",
 		MAME_DIR .. "src/devices/cpu/m6805/m68hc05e1.h",
+		MAME_DIR .. "src/devices/cpu/m6805/m68hc05pge.cpp",
+		MAME_DIR .. "src/devices/cpu/m6805/m68hc05pge.h",
 	}
 end
 
@@ -2976,6 +2982,8 @@ if CPUS["TLCS900"] then
 		MAME_DIR .. "src/devices/cpu/tlcs900/tlcs900.h",
 		MAME_DIR .. "src/devices/cpu/tlcs900/900tbl.hxx",
 		MAME_DIR .. "src/devices/cpu/tlcs900/900htbl.hxx",
+		MAME_DIR .. "src/devices/cpu/tlcs900/tmp94c241.cpp",
+		MAME_DIR .. "src/devices/cpu/tlcs900/tmp94c241.h",
 		MAME_DIR .. "src/devices/cpu/tlcs900/tmp95c061.cpp",
 		MAME_DIR .. "src/devices/cpu/tlcs900/tmp95c061.h",
 		MAME_DIR .. "src/devices/cpu/tlcs900/tmp95c063.cpp",
@@ -3927,6 +3935,13 @@ end
 -- uPD177x - Disassembler only
 --@src/devices/cpu/upd177x/upd177x.h,CPUS["UPD177X"] = true
 --------------------------------------------------
+
+if CPUS["UPD177X"] then
+	files {
+		MAME_DIR .. "src/devices/cpu/upd177x/upd177x.cpp",
+		MAME_DIR .. "src/devices/cpu/upd177x/upd177x.h",
+	}
+end
 
 if opt_tool(CPUS, "UPD177X") then
 	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/upd177x/upd177xd.cpp")
